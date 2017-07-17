@@ -39,5 +39,6 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style>
+@import "../../styles/calendar.css";
 </style>

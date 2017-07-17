@@ -1,7 +1,7 @@
 <template>
   <footer>
     <ul class="lx-nav-bottom">
-      <li class="lx-tab-item" @click="goto('calendar')">calendar</li>
+      <li class="lx-tab-item" @click="goto('Calendar')">calendar</li>
       <li class="lx-tab-item">1</li>
       <li class="lx-tab-item">1</li>
     </ul>
