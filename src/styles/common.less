@@ -1,0 +1,167 @@
+/*!
+ * common.less • v1.2.2
+ * Ethan
+ * ntc
+ */
+
+/* +------- main color start ---------+*/
+
+@mainColor: #3295E5;
+@priceColor: #FF4E00;
+@introColor: #999999;
+
+/* +------- main color end ---------+*/
+
+
+/* +------- common css start ---------+*/
+
+/* -- 单选框公共样式 -- */
+
+input[type="radio"] {
+    width: 14px;
+    height: 14px;
+    margin: 5px 10px;
+    padding: 10px;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      content: '';
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: url(../assets/images/icon_zhifu_noselect.png) center #FFF;
+      background-size: contain;
+    }
+
+    &:checked:before {
+      background: url(../assets/images/icon_zhifu_selected.png) center #FFF;
+      background-size: contain;
+    }
+}
+
+/* -- 多选框公共样式 -- */
+
+input[type="radio"] {
+    width: 14px;
+    height: 14px;
+    margin: 5px 10px;
+    padding: 10px;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      content: '';
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: url(../assets/images/icon_zhifu_noselect.png) center #FFF;
+      background-size: contain;
+    }
+
+    &:checked:before {
+      background: url(../assets/images/icon_zhifu_selected.png) center #FFF;
+      background-size: contain;
+    }
+}
+
+
+/* -- 浮动&清除浮动 -- */
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.left-arrow,
+.right-arrow,
+.triangle {
+    position: relative;
+}
+
+/* -- 版权 -- */
+
+.copyright {
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  text-align: center;
+  padding: 8px 0;
+  color: @introColor;
+}
+
+/* -- 箭头公共样式 -- */
+
+.left-arrow:before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ccc;
+    border-width: 1px 0 0 1px;
+    -webkit-transform: rotate(315deg);
+    transform: rotate(315deg);
+}
+
+.right-arrow:after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid @mainColor;
+    border-bottom: 1px solid @mainColor;
+    transform: rotate(320deg);
+    -webkit-transform: rotate(317deg);
+    position: absolute;
+    right: -3px;
+    top: 7px;
+}
+
+
+/* -- 三角形公共样式 -- */
+
+.triangle:after {
+    position: absolute;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid #999;
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    right: -13px;
+    top: 5px;
+}
+
+
+/* -- 设置省略号 -- */
+
+.ellipsis-set {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* -- @media 兼容小屏幕 -- */
+
+@media screen and (width: 320px) {}
+
+
+/* +------- common css end ---------+*/
