@@ -11,7 +11,7 @@ bus.$on('setTitle', (to, from) => {
 
 bus.$on('hideFooterNav', async (to, from) => {
   await sleep(20)
-  document.querySelector('.lx-nav-bottom').classList[to.meta.hideFooterNav ? 'add' : 'remove']('hide')
+  document.querySelector('.nav-bottom').classList[to.meta.hideFooterNav ? 'add' : 'remove']('hide')
 })
 
 const body = document.body

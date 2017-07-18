@@ -7,6 +7,7 @@ import App from './App'
 import router from './router'
 
 import './libs/rem'
+import './styles/common.less'
 import './styles/reset.css'
 import * as filters from './filters'
 // import FastClick from './libs/fastclick'

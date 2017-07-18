@@ -13,12 +13,12 @@ const router = new Router({
   base: __dirname,
   routes: [{
     path: '/',
-    name: 'Home',
+    name: 'home',
     meta: { keepAlive: true, title: 'random' },
     component: Home
   }, {
     path: '/calendar',
-    name: 'Calendar',
+    name: 'calendar',
     meta: { keepAlive: true, title: 'Calendar' },
     component: Calendar
   }],

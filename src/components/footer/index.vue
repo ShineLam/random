@@ -1,29 +1,24 @@
 <template>
   <footer>
-    <ul class="lx-nav-bottom">
-      <li class="lx-tab-item" @click="goto('Calendar')">calendar</li>
-      <li class="lx-tab-item">1</li>
-      <li class="lx-tab-item">1</li>
+    <ul class="nav-bottom">
+      <router-link :to="{ name: 'home', params: {} }" tag="li" exact activeClass="nav-bottom-active">home</router-link>
+      <router-link :to="{ name: 'calendar', params: {} }" tag="li" activeClass="nav-bottom-active">calendar</router-link>
+      <!-- <router-link :to="{ name: 'about', params: {} }" tag="li" activeClass="nav-bottom-active">about</router-link> -->
     </ul>
   </footer>
-<!-- footer(data-tg-fragid='menu')
-  ul.lx-nav-bottom
-    router-link.lx-tab-item(tag="li", to="/", activeClass="lx-active", exact)
-      span.mui-icon.nav-home
-      span.mui-tab-label 网站首页
-    router-link.lx-tab-item(tag="li", to="/activity/113001", activeClass="lx-active")
-      span.mui-icon.nav-tehui
-      span.mui-tab-label 旅游特惠
-    router-link.lx-tab-item(tag="li", to="/bill", activeClass="lx-active")
-      span.mui-icon.nav-dingdan
-      span.mui-tab-label 我的订单
-    router-link.lx-tab-item(tag="li", to="/mine", activeClass="lx-active")
-      span.mui-icon.nav-wodi
-      span.mui-tab-label 个人中心 -->
 </template>
 
 <style lang="less">
-footer ul li {
-  list-style: none;
+.nav-bottom {
+  display: flex;
+  background: #FFF;
+  li {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
+}
+.nav-bottom-active {
+  color: red;
 }
 </style>
