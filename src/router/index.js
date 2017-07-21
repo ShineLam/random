@@ -19,7 +19,7 @@ const router = new Router({
   }, {
     path: '/calendar',
     name: 'calendar',
-    meta: { keepAlive: true, title: 'Calendar' },
+    meta: { keepAlive: true, title: 'Calendar', hideFooterNav: true },
     component: Calendar
   }],
   scrollBehavior (to, from, savedPosition) {

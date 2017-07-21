@@ -10,8 +10,10 @@
         <section class="calendar-month" v-for="months in dateData">
           <h2 class="calendar-title">{{ months.title }}</h2>
           <ul class="calendar-days">
+            <!-- 'disabled': date.type, -->
             <li v-for="(date, index) in months.dayList"
-                :class="{'sel-day': date.active}"
+                :class="{'sel-day': date.active,
+                          'weekend': date.weekend,}"
                 @click="selDay(date)"
                 @click.stop="date.active = !date.active">
               <span>{{ date.day }}</span>
@@ -32,23 +34,25 @@ export default {
     }
   },
   created () {
-    this.initDate()
+    this.initDate('2017-07')
   },
   methods: {
     createDay (day, today) {
       let date = day.format('yyyy-MM-dd')
       let d = {
         date: date,
-        day: day.getDate(),
-        isToday: date === today ? 'tday' : '',
+        day: date === today ? '♪' : day.getDate(),
+        // type: date < (today || (new Date()).format('yyyy-MM-dd')) ? true : '',
+        weekend: (day.getDay() === 0 || day.getDay() === 6) ? true : '',
         active: false
       }
       return d
     },
-    initDate () {
+    initDate (beginDate) {
+      let bg = beginDate.toDate()
       let monthList = []
-      let day = new Date()
-      let today = day.format('yyyy-MM-dd')
+      let day = new Date(bg.getFullYear(), bg.getMonth() + 1)
+      let today = new Date().format('yyyy-MM-dd')
       day.setDate(1)
       for (let i = 0; i < 12; i++) {
         let dayList = []
