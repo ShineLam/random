@@ -1,12 +1,3 @@
-.actives {
-  background: #4499ff;
-  border-radius: 5px;
-}
-
-.actives span {
-  color: #FFF;
-}
-
 .calendar-content {
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
@@ -91,6 +82,14 @@ header {
   text-align: center;
   color: #333;
   margin-bottom: 10px;
+}
+.calendar-days .sel-day {
+  background-color: #4499ff !important;
+  border-radius: 5px;
+}
+
+.calendar-days .sel-day span {
+  color: #FFF;
 }
 
 

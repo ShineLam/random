@@ -11,7 +11,9 @@
           <h2 class="calendar-title">{{ months.title }}</h2>
           <ul class="calendar-days">
             <li v-for="(date, index) in months.dayList"
-                @click="selDay($event)">
+                :class="{'sel-day': date.active}"
+                @click="selDay(date)"
+                @click.stop="date.active = !date.active">
               <span>{{ date.day }}</span>
             </li>
           </ul>
@@ -38,7 +40,8 @@ export default {
       let d = {
         date: date,
         day: day.getDate(),
-        isToday: date === today ? 'tday' : ''
+        isToday: date === today ? 'tday' : '',
+        active: false
       }
       return d
     },
@@ -72,14 +75,20 @@ export default {
         this.dateData = monthList
       }
     },
-    selDay (e) {
-      e.target.style.color = 'red'
-      console.log(e)
+    selDay (date) {
+      console.log(date)
+      // 重置active
+      this.dateData.forEach(result => {
+        let thisDate = result.dayList
+        thisDate.forEach(_result => {
+          _result.active = false
+        })
+      })
     }
   }
 }
 </script>
 
-<style lang="less">
+<style>
 @import "../../styles/calendar.css";
 </style>

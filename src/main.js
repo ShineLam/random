@@ -27,4 +27,7 @@ Vue.prototype.goto = function (name, query) {
 }
 
 /* eslint-disable no-new */
-new Vue({ router, ...App }).$mount('#app')
+new Vue({
+  router,
+  ...App
+}).$mount('#app')
