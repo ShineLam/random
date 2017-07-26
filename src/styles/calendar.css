@@ -53,16 +53,16 @@ header {
 
 .calendar-title {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   height: 45px;
   line-height: 45px;
   color: #353535;
   letter-spacing: 1px;
-  margin: 0;
+  margin: 10px auto 0;
 }
 
 .calendar-month {
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
   border-bottom: 1px solid #ebebeb;
 }
 
@@ -180,4 +180,16 @@ header {
 
 .calendar-days li.active .calendar-remark {
   display: none;
+}
+
+/*开始按钮*/
+.start-button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  color: #FFF;
+  text-align: center;
+  background: #4499ff;
 }

@@ -19,9 +19,10 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false
 
 // 定义路由跳转公用方法
-Vue.prototype.goto = function (name, query) {
+Vue.prototype.goto = function (name, params, query) {
   this.$router.push({
     name: name,
+    params: params || {},
     query: query || {}
   })
 }

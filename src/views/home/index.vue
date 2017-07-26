@@ -7,7 +7,7 @@
   <div class="">
     {{ matters.name }}
   </div>
-  <button type="button" @click="goto('calendar')">gotoCalendar</button>
+  <button type="button" @click="goto('calendar', {m: 1})">gotoCalendar</button>
   <a @click="test">test</a>
 </div>
 </template>

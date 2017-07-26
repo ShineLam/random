@@ -14,12 +14,12 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'home',
-    meta: { keepAlive: true, title: 'random' },
+    meta: { keepAlive: true, title: 'Random' },
     component: Home
   }, {
-    path: '/calendar',
+    path: '/calendar/:m',
     name: 'calendar',
-    meta: { keepAlive: true, title: 'Calendar', hideFooterNav: true },
+    meta: { keepAlive: false, title: 'Calendar', hideFooterNav: true },
     component: Calendar
   }],
   scrollBehavior (to, from, savedPosition) {

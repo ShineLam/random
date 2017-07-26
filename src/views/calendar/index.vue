@@ -10,17 +10,21 @@
         <section class="calendar-month" v-for="months in dateData">
           <h2 class="calendar-title">{{ months.title }}</h2>
           <ul class="calendar-days">
-            <!-- 'disabled': date.type, -->
             <li v-for="(date, index) in months.dayList"
-                :class="{'sel-day': date.active,
+                :class="{'sel-day': date.active && !date.type,
+                          'disabled': date.type,
                           'weekend': date.weekend,}"
                 @click="selDay(date)"
                 @click.stop="date.active = !date.active">
               <span>{{ date.day }}</span>
+              <!-- <p v-show="mod != 12">{{ index }}</p> -->
             </li>
           </ul>
         </section>
       </div>
+    </div>
+    <div class="start-button" v-show="mod != 12" @click="startRan">
+      {{ buttonTxt }}
     </div>
   </div>
 </template>
@@ -30,31 +34,45 @@ export default {
   data () {
     return {
       weekData: ['日', '一', '二', '三', '四', '五', '六'],
-      dateData: []
+      dateData: [],
+      mod: Number(this.$route.params.m),
+      //
+      buttonTxt: 'Start'
     }
   },
-  created () {
-    this.initDate('2017-07')
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.initDate('2017-07', vm.mod)
+    })
   },
   methods: {
-    createDay (day, today) {
+    loop (len, callback, star) {
+      if (!star) {
+        star = 0
+      }
+      for (let i = star; i < len; i++) {
+        callback && callback()
+      }
+    },
+    createDay (day, today, m) {
       let date = day.format('yyyy-MM-dd')
       let d = {
         date: date,
         day: date === today ? '♪' : day.getDate(),
-        // type: date < (today || (new Date()).format('yyyy-MM-dd')) ? true : '',
+        type: m !== 12 && date < (today || (new Date()).format('yyyy-MM-dd')) ? true : '',
         weekend: (day.getDay() === 0 || day.getDay() === 6) ? true : '',
         active: false
       }
       return d
     },
-    initDate (beginDate) {
+    initDate (beginDate, len) {
       let bg = beginDate.toDate()
       let monthList = []
       let day = new Date(bg.getFullYear(), bg.getMonth() + 1)
       let today = new Date().format('yyyy-MM-dd')
+      let l = len
       day.setDate(1)
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < l; i++) {
         let dayList = []
         // 每月第一天是周几
         let dayOfWeek = day.getDay()
@@ -66,7 +84,7 @@ export default {
         let month = day.getMonth()
         let year = day.getFullYear()
         while (true) {
-          dayList.push(this.createDay(day, today))
+          dayList.push(this.createDay(day, today, l))
           day.setDate(day.getDate() + 1)
           if (day.getMonth() !== month) {
             monthList.push({
@@ -88,6 +106,12 @@ export default {
           _result.active = false
         })
       })
+    },
+    startRan () {
+      this.buttonTxt = 'randoming…'
+      setTimeout(() => {
+        this.buttonTxt = 'Start'
+      }, 2000)
     }
   }
 }
