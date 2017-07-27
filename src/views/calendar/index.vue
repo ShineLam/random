@@ -7,17 +7,16 @@
         </ul>
       </header>
       <div class="calendar-items">
-        <section class="calendar-month" v-for="months in dateData">
+        <section class="calendar-month" v-for="(months, i) in dateData">
           <h2 class="calendar-title">{{ months.title }}</h2>
           <ul class="calendar-days">
             <li v-for="(date, index) in months.dayList"
                 :class="{'sel-day': date.active && !date.type,
                           'disabled': date.type,
                           'weekend': date.weekend,}"
-                @click="selDay(date)"
-                @click.stop="date.active = !date.active">
+                @click="selDay(i, index)">
               <span>{{ date.day }}</span>
-              <!-- <p v-show="mod != 12">{{ index }}</p> -->
+              <div  v-show="mod == 12" class="has-events"></div>
             </li>
           </ul>
         </section>
@@ -97,15 +96,18 @@ export default {
         this.dateData = monthList
       }
     },
-    selDay (date) {
-      console.log(date)
+    selDay (i, idx) {
+      console.log(i, idx)
+      // date.active = true
+      // this.dateData[index].active = true
+      // console.log(date)
       // 重置active
-      this.dateData.forEach(result => {
-        let thisDate = result.dayList
-        thisDate.forEach(_result => {
-          _result.active = false
-        })
-      })
+      // this.dateData.forEach(result => {
+      //   let thisDate = result.dayList
+      //   thisDate.forEach(_result => {
+      //     _result.active = false
+      //   })
+      // })
     },
     startRan () {
       this.buttonTxt = 'randoming…'
