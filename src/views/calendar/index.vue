@@ -16,7 +16,7 @@
                           'weekend': date.weekend,}"
                 @click="selDay(i, index)">
               <span>{{ date.day }}</span>
-              <div  v-show="mod == 12" class="has-events"></div>
+              <!-- <div v-show="mod == 12" class="has-events"></div> -->
             </li>
           </ul>
         </section>
@@ -36,12 +36,13 @@ export default {
       dateData: [],
       mod: Number(this.$route.params.m),
       //
-      buttonTxt: 'Start'
+      buttonTxt: 'Start',
+      ranVal: {}
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.initDate('2017-07', vm.mod)
+      vm.initDate(vm.mod)
     })
   },
   methods: {
@@ -64,10 +65,10 @@ export default {
       }
       return d
     },
-    initDate (beginDate, len) {
-      let bg = beginDate.toDate()
+    initDate (len, beginDate) {
+      let bg = beginDate ? beginDate.toDate() : new Date()
       let monthList = []
-      let day = new Date(bg.getFullYear(), bg.getMonth() + 1)
+      let day = new Date(bg.getFullYear(), bg.getMonth())
       let today = new Date().format('yyyy-MM-dd')
       let l = len
       day.setDate(1)
@@ -97,22 +98,50 @@ export default {
       }
     },
     selDay (i, idx) {
-      console.log(i, idx)
-      // date.active = true
-      // this.dateData[index].active = true
-      // console.log(date)
-      // 重置active
-      // this.dateData.forEach(result => {
-      //   let thisDate = result.dayList
-      //   thisDate.forEach(_result => {
-      //     _result.active = false
-      //   })
-      // })
+      let able = this.dateData[i].dayList[idx].type
+      let date = this.dateData[i].dayList[idx].date
+      let mod = this.mod
+      if (!able && mod !== 1) {
+        this.dateData[i].dayList[idx].active = true
+        setTimeout(() => {
+          this.$router.push({
+            name: 'home',
+            query: {'date': date}
+          })
+        }, 50)
+      }
+    },
+    // 设置随机时间
+    setRandom (m) {
+      let randomNum = Math.round(Math.random() * 30)
+      let ranObj = this.dateData[0].dayList[randomNum]
+      if (JSON.stringify(ranObj) !== '{}' && !ranObj.type) {
+        ranObj.active = true
+        if (m === 1) {
+          ranObj.active = true
+          this.ranVal = ranObj
+        }
+      }
+    },
+    // 重置active
+    resetActive () {
+      this.dateData.forEach(res => {
+        let dayList = res.dayList
+        dayList.forEach(_res => {
+          _res.active = false
+        })
+      })
     },
     startRan () {
       this.buttonTxt = 'randoming…'
+      let setRandom = setInterval(this.setRandom, 300)
       setTimeout(() => {
-        this.buttonTxt = 'Start'
+        clearInterval(setRandom)
+        setTimeout(() => {
+          this.resetActive()
+          this.setRandom(1)
+          this.buttonTxt = 'Start'
+        }, 2001)
       }, 2000)
     }
   }
