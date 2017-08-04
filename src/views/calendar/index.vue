@@ -1,6 +1,6 @@
 <template>
   <div class="calendar">
-    <div class="calendar-content">
+    <div class="calendar-content" :class="{'half-opc': loading}">
       <header>
         <ul class="calendar-bar">
           <li v-for="week in weekData">{{ week}}</li>
@@ -22,9 +22,22 @@
         </section>
       </div>
     </div>
-    <div class="start-button" v-show="mod != 12" @click="startRan">
+    <button type="button" class="start-button" v-show="mod != 12" @click="startRan" :disabled="disabled">
       {{ buttonTxt }}
+    </button>
+    <div class="load" v-show="loading">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
     </div>
+    <!-- <div class="loading" v-show="loading">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div> -->
+    <!-- <div class="spinner" v-show="loading"></div> -->
+    <!-- <div class="marker" v-show="loading"></div> -->
   </div>
 </template>
 
@@ -36,8 +49,11 @@ export default {
       dateData: [],
       mod: Number(this.$route.params.m),
       //
-      buttonTxt: 'Start',
-      ranVal: {}
+      ranVal: {},
+      //
+      loading: false,
+      disabled: false,
+      buttonTxt: 'Start'
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -105,22 +121,24 @@ export default {
         this.dateData[i].dayList[idx].active = true
         setTimeout(() => {
           this.$router.push({
-            name: 'home',
-            query: {'date': date}
+            name: 'matters',
+            params: { d: date }
           })
-        }, 50)
+        }, 1000)
       }
     },
     // 设置随机时间
     setRandom (m) {
       let randomNum = Math.round(Math.random() * 30)
       let ranObj = this.dateData[0].dayList[randomNum]
-      if (JSON.stringify(ranObj) !== '{}' && !ranObj.type) {
+      if (ranObj.hasOwnProperty('type') && ranObj.type !== true) {
         ranObj.active = true
         if (m === 1) {
           ranObj.active = true
           this.ranVal = ranObj
         }
+      } else {
+        this.setRandom()
       }
     },
     // 重置active
@@ -134,6 +152,8 @@ export default {
     },
     startRan () {
       this.buttonTxt = 'randoming…'
+      this.disabled = true
+      this.loading = true
       let setRandom = setInterval(this.setRandom, 300)
       setTimeout(() => {
         clearInterval(setRandom)
@@ -141,6 +161,16 @@ export default {
           this.resetActive()
           this.setRandom(1)
           this.buttonTxt = 'Start'
+          this.disabled = false
+          this.loading = false
+          setTimeout(() => {
+            if (this.ranVal.hasOwnProperty('date')) {
+              this.$router.push({
+                name: 'home',
+                query: { date: this.ranVal.date }
+              })
+            }
+          }, 2002)
         }, 2001)
       }, 2000)
     }

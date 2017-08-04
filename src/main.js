@@ -5,6 +5,9 @@ require('es6-promise').polyfill()
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 import './libs/rem'
 import './styles/common.less'

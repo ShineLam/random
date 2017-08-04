@@ -3,7 +3,9 @@
   box-sizing: border-box;
   font-family: "HanHei SC", "PingHei", "PingFang SC", "STHeitiSC-Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
-
+.half-opc {
+  opacity: .3;
+}
 .calendar-content .elem-proxy {
   position: absolute;
   top: 0;
@@ -24,6 +26,7 @@ header {
   top: 0;
   z-index: 10011;
 }
+
 .calendar-bar {
   display: -webkit-flex;
   margin: 0;
@@ -62,7 +65,6 @@ header {
 }
 
 .calendar-month {
-  /*margin-bottom: 5px;*/
   border-bottom: 1px solid #ebebeb;
 }
 
@@ -83,13 +85,28 @@ header {
   color: #333;
   margin-bottom: 10px;
 }
+
 .calendar-days .sel-day {
   background-color: #4499ff !important;
   border-radius: 5px;
+  animation: zooming .6s 1 ease-in-out;
 }
 
 .calendar-days .sel-day span {
   color: #FFF;
+}
+
+@keyframes zooming {
+  0%, 100%  {
+    opacity: 1;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
 }
 
 
@@ -115,7 +132,9 @@ header {
   color: #b2b2b2;
 }
 
+
 /*事件标记*/
+
 .has-events {
   width: 5px;
   height: 5px;
@@ -123,6 +142,7 @@ header {
   margin: -5px auto 0;
   background: #3295E5;
 }
+
 
 /*日期右上角文字*/
 
@@ -174,7 +194,6 @@ header {
   font-size: 12px;
 }
 
-
 /*激活状态*/
 
 .calendar-days li.active {
@@ -188,16 +207,4 @@ header {
 
 .calendar-days li.active .calendar-remark {
   display: none;
-}
-
-/*开始按钮*/
-.start-button {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  color: #FFF;
-  text-align: center;
-  background: #4499ff;
 }

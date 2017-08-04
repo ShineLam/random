@@ -6,6 +6,7 @@ Vue.use(Router)
 
 import Home from '@/views/Home'
 import Calendar from '@/views/Calendar'
+import Matters from '@/views/Matters'
 
 const router = new Router({
   linkActiveClass: 'active',
@@ -21,6 +22,11 @@ const router = new Router({
     name: 'calendar',
     meta: { keepAlive: false, title: 'Calendar', hideFooterNav: true },
     component: Calendar
+  }, {
+    path: '/matters/:d',
+    name: 'matters',
+    meta: { keepAlive: false, title: 'Matters' },
+    component: Matters
   }],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
