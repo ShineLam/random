@@ -2,7 +2,7 @@
 <div class="home">
   <ul class="random-steps">
     <li>
-      <input type="text" name="" value="" v-model="matters.name" placeholder="Input your matter">
+      <input type="text" name="" value="" v-model="matter.name" placeholder="Input your matter">
       <div class="step-flow">
         <div class="top-line"></div>
         <div class="circle"></div>
@@ -12,7 +12,7 @@
     <li>
       <div class="matter-txt">
         Matter：
-        <p>{{ matters.name }}</p>
+        <p>{{ matter.name }}</p>
       </div>
       <div class="step-flow">
         <div class="top-line"></div>
@@ -31,29 +31,70 @@
     <li>
       <div class="matter-txt">
         Date:
-        <p>{{ matters.date }}</p>
+        <p>{{ matter.date }}</p>
       </div>
+      <div class="step-flow">
+        <div class="top-line"></div>
+        <div class="circle"></div>
+        <div class="bottom-line"></div>
+      </div>
+    </li>
+    <li>
+      <button class="" @click="complete">
+        complete
+      </button>
     </li>
   </ul>
 </div>
 </template>
 
 <script>
+import { setLocal, getLocal } from '@/utils/utils'
 export default {
   data () {
     return {
-      matters: {
+      matter: {
         name: '',
         date: ''
-      }
+      },
+      matters: []
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.matters.date = vm.$route.query.date
+      vm.matter.date = vm.$route.query.date
+      vm.getRanDate()
     })
   },
-  methods: {}
+  methods: {
+    // 获取random_date
+    getRanDate () {
+      const date = getLocal('random_date')
+      if (date) {
+        this.matter.date = date
+      }
+    },
+    complete () {
+      if (this.matter.name && this.matter.date) {
+        this.matters.push(this.matter)
+        setLocal('random_matter', this.matters)
+        this.$router.push({
+          name: 'matters',
+          params: {d: 1}
+        })
+        this.reset()
+      } else {
+        window.alert('请输入你要搞的事情并且设置随机日期')
+      }
+    },
+    reset () {
+      this.matter = {
+        name: '',
+        date: ''
+      }
+      getLocal('random_date', true)
+    }
+  }
 }
 </script>
 

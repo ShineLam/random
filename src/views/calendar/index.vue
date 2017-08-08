@@ -32,16 +32,11 @@
       <div class="rect4"></div>
       <div class="rect5"></div>
     </div>
-    <!-- <div class="loading" v-show="loading">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
-    </div> -->
-    <!-- <div class="spinner" v-show="loading"></div> -->
-    <!-- <div class="marker" v-show="loading"></div> -->
   </div>
 </template>
 
 <script>
+import { setLocal } from '@/utils/utils'
 export default {
   data () {
     return {
@@ -131,7 +126,7 @@ export default {
     setRandom (m) {
       let randomNum = Math.round(Math.random() * 30)
       let ranObj = this.dateData[0].dayList[randomNum]
-      if (ranObj.hasOwnProperty('type') && ranObj.type !== true) {
+      if (ranObj.hasOwnProperty('type') && ranObj.type === '') {
         ranObj.active = true
         if (m === 1) {
           ranObj.active = true
@@ -159,19 +154,21 @@ export default {
         clearInterval(setRandom)
         setTimeout(() => {
           this.resetActive()
-          this.setRandom(1)
           this.buttonTxt = 'Start'
           this.disabled = false
           this.loading = false
+          this.setRandom(1)
           setTimeout(() => {
-            if (this.ranVal.hasOwnProperty('date')) {
+            if (this.ranVal) {
+              setLocal('random_date', this.ranVal.date)
               this.$router.push({
-                name: 'home',
-                query: { date: this.ranVal.date }
+                name: 'home'
               })
+            } else {
+              this.setRandom(1)
             }
-          }, 2002)
-        }, 2001)
+          }, 2006)
+        }, 2003)
       }, 2000)
     }
   }
