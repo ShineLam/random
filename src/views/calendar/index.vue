@@ -159,16 +159,21 @@ export default {
           this.loading = false
           this.setRandom(1)
           setTimeout(() => {
-            if (this.ranVal) {
-              setLocal('random_date', this.ranVal.date)
+            if (this.ranVal.hasOwnProperty('type')) {
+              setLocal('random_date', this.ranVal)
               this.$router.push({
                 name: 'home'
               })
             } else {
+              this.resetActive()
               this.setRandom(1)
+              setLocal('random_date', this.ranVal)
+              this.$router.push({
+                name: 'home'
+              })
             }
-          }, 2006)
-        }, 2003)
+          }, 2020)
+        }, 2010)
       }, 2000)
     }
   }

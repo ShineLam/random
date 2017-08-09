@@ -62,14 +62,13 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.matter.date = vm.$route.query.date
       vm.getRanDate()
     })
   },
   methods: {
     // 获取random_date
     getRanDate () {
-      const date = getLocal('random_date')
+      const date = getLocal('random_date').date
       if (date) {
         this.matter.date = date
       }
